@@ -42,16 +42,16 @@ public class EmployeeController {
 
     }
 
-//    @PutMapping("updateProduct/{id}")
-//    public ProductEntity updateProduct(@PathVariable long id, @RequestBody ProductEntity updatedEntity){
-//        Optional<ProductEntity> savedProduct = productRepository.findById(id);
-//        ProductEntity productEntity = savedProduct.get();
-//        productEntity.setProductName(updatedEntity.getProductName());
-//        productEntity.setProductPrice(updatedEntity.getProductPrice());
-//        productEntity.setAvailable(updatedEntity.isAvailable());
-//        ProductEntity updatedProduct = productRepository.save(productEntity);
-//        return updatedProduct;
-//    }
+    @PutMapping("updateEmployee/{id}")
+    public EmployeeEntity updateEmployee(@PathVariable long id, @RequestBody EmployeeEntity updatedEntity){
+        Optional<EmployeeEntity> savedProduct = employeeRepository.findById(id);
+        EmployeeEntity employeeEntity = savedProduct.get();
+        employeeEntity.setEmployeeName(updatedEntity.getEmployeeName());
+        employeeEntity.setMobileNUmber(updatedEntity.getMobileNUmber());
+        employeeEntity.setEmployeeStatus(updatedEntity.getEmployeeStatus());
+        EmployeeEntity updatedProduct = employeeRepository.save(employeeEntity);
+        return updatedProduct;
+    }
 
 
 }
