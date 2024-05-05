@@ -3,6 +3,7 @@ package com.learning.controller;
 import com.learning.entity.EmployeeEntity;
 import com.learning.entity.ProductEntity;
 import com.learning.repository.ProductRepository;
+import com.learning.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,42 +15,36 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
     //return type ProductEntity and request payload productEntity
     @PostMapping("saveProduct")
     public ProductEntity saveProduct(@RequestBody ProductEntity productEntity){
-        ProductEntity saveProduct = productRepository.save(productEntity);
+        ProductEntity saveProduct = productService.saveProduct(productEntity);
        return saveProduct;
 
     }
 
     @GetMapping("getProduct/{id}")
     public ProductEntity getProductById(@PathVariable long id){
-        Optional<ProductEntity> productEntity = productRepository.findById(id);
-        return productEntity.get();
-
+        ProductEntity productEntity = productService.getProductById(id);
+        return productEntity;
     }
 
     @DeleteMapping("deleteProduct/{id}")
     public void deleteProductById(@PathVariable long id){
-          productRepository.deleteById(id);
+          productService.deleteProductById(id);
 
     }
     @GetMapping("getAllProduct")
     public List<ProductEntity> getAllProduct(){
-        List<ProductEntity> productEntities = productRepository.findAll();
+        List<ProductEntity> productEntities = productService.getAllProduct();
         return  productEntities;
     }
 
     @PutMapping("updateProduct/{id}")
     public ProductEntity updateProduct(@PathVariable long id, @RequestBody ProductEntity updatedEntity){
-        Optional<ProductEntity> savedProduct = productRepository.findById(id);
-        ProductEntity productEntity = savedProduct.get();
-        productEntity.setProductName(updatedEntity.getProductName());
-        productEntity.setProductPrice(updatedEntity.getProductPrice());
-        productEntity.setAvailable(updatedEntity.isAvailable());
-        ProductEntity updatedProduct = productRepository.save(productEntity);
-        return updatedProduct;
+        ProductEntity updatedEntity1 = productService.updateProduct(id, updatedEntity);
+        return updatedEntity1;
     }
 
 
